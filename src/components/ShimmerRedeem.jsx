@@ -1,36 +1,34 @@
 import React from "react";
-import Shimmer from "./Shimmer";
+
 
 const ShimmerRedeem = () => {
   return (
-    <div>
-      <div className="bg-[#2a323c] relative md:w-3/4 w-full flex md:flex-row flex-col py-10   text-white rounded-md">
-        <div className="absolute transform translate-y-32 w-full flex items-center  justify-between">
-          <div className="bg-[#181e24] h-16 w-16 rounded-full -translate-x-8 shimmer"></div>
-          <div className="bg-[#181e24] h-16 w-16 rounded-full translate-x-8 shimmer"></div>
-        </div>
-        <div className="mx-10 md:w-1/2 w-full ml-20 flex items-start border-r-2 justify-center flex-col">
+    <div className="min-h-screen bg-[#181e24] flex justify-center items-center">
+      <div className="bg-[#2a323c] relative md:h-10/12 md:w-[80%] md:px-40 md:justify-center p-20 h-1/2 w-full flex md:flex-row flex-col py-14 text-white rounded-md">
+        <div className="md:mx-10 md:w-1/2 w-full ml-8 md:mr-48 flex items-start animate-pulse justify-center flex-col">
           <div className="flex mt-5 h-12">
             <div className="object-cover h-10 w-14 rounded-md shimmer"></div>
-            <div className="flex flex-col justify-center ml-4">
-              <div className="h-4 w-24 shimmer mb-2"></div>
-              <div className="h-3 w-32 shimmer"></div>
+            <div className="ml-2">
+              <div className="h-4 w-24 bg-gray-700 shimmer mb-2"></div>
+              <div className="h-4 w-16 bg-gray-700 shimmer"></div>
             </div>
           </div>
           <hr className="m-2 shimmer" />
-          <div className="h-6 w-48 shimmer mt-4"></div>
-          <ol className="mt-6 mr-3 text-xl space-y-4">
-            <li className="h-4 w-60 shimmer"></li>
-            <li className="h-4 w-72 shimmer"></li>
-            <li className="h-4 w-48 shimmer"></li>
-            <li className="h-4 w-56 shimmer"></li>
-          </ol>
+          <div className="mt-4">
+            <div className="h-4 w-40 bg-gray-700 shimmer mb-4"></div>
+            <ul className="space-y-2">
+              <li className="h-4 w-full bg-gray-700 shimmer"></li>
+              <li className="h-4 w-full bg-gray-700 shimmer"></li>
+              <li className="h-4 w-full bg-gray-700 shimmer"></li>
+              <li className="h-4 w-full bg-gray-700 shimmer"></li>
+            </ul>
+          </div>
         </div>
-        <div className="h-full md:w-1/2 w-full flex flex-col items-center justify-center gap-y-4">
-          <div className="h-8 w-24 shimmer mb-4"></div>
-          <div className="w-1/2 h-10 bg-[#181e24] shimmer"></div>
-          <div className="h-6 w-32 shimmer mt-4"></div>
-          <button className="w-1/2 mb-6 h-10 bg-[#181e24] rounded-md shadow-sm shimmer"></button>
+        <div className="h-full md:w-1/2 w-full flex flex-col pt-6 animate-pulse duration-1000 items-center justify-center md:justify-center gap-y-4">
+          <div className="h-6 w-24 bg-gray-700 shimmer mb-4"></div>
+          <div className="w-1/3 p-2 rounded-lg text-center bg-[#181e24] shimmer"></div>
+          <div className="h-6 w-32 bg-gray-700 shimmer mt-4"></div>
+          <div className="h-10 w-24 bg-blue-500 shimmer  rounded-md mt-4"></div>
         </div>
       </div>
     </div>

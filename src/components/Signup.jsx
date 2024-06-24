@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { signUpSchema } from "../schemas/signUpSchema";
 import {
   createUserWithEmailAndPassword,
-
 } from "firebase/auth";
 import { auth, fireDb } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,81 +18,50 @@ const initialValues = {
   confirmpassword: "",
 };
 
-
-
 const Signup = () => {
   const { loading, setLoading } = useContext(myContext);
   const navigate = useNavigate();
-  const [userSignup, setUserSignup] = useState(initialValues);
-
-  const userSignupFunction = async () => {
-    if (
-      userSignup.name === "" &&
-      userSignup.email === "" &&
-      userSignup.password === "" &&
-      userSignup.confirmpassword === ""
-    ) {
-      return toast.error("All Fields are required");
-    }
-
-    if (userSignup.password !== userSignup.confirmpassword) {
-      return toast.error("Passwords do not match");
-    }
-
-    setLoading(true);
-    try {
-      const users = await createUserWithEmailAndPassword(
-        auth,
-        userSignup.email,
-        userSignup.password
-      );
-
-      const user = {
-        name: userSignup.name,
-        email: users.user.email,
-        uid: users.user.uid,
-        time: Timestamp.now(),
-        date: new Date().toLocaleString("en-US", {
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-        }),
-      };
-
-      const userRefrence = collection(fireDb, "user");
-      await addDoc(userRefrence, user);
-
-      setUserSignup(initialValues);
-      toast.success("Signup Successfully");
-      navigate("/login");
-    } catch (error) {
-      console.error(error);
-      toast.error("Signup Failed");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // const signupWithGoogle = async () => {
-  //   setLoading(true);
-  //   try {
-  //     await signInWithPopup(auth, googleProvider);
-  //     toast.success("Signup with Google Successful");
-  //     navigate("/dashboard");
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("Signup with Google Failed");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   const formik = useFormik({
     initialValues,
     validationSchema: signUpSchema,
-    onSubmit: (values) => {
-      setUserSignup(values);
-      userSignupFunction();
+    onSubmit: async (values) => {
+      if (values.password !== values.confirmpassword) {
+        return toast.error("Passwords do not match");
+      }
+      
+      setLoading(true);
+      try {
+        const users = await createUserWithEmailAndPassword(
+          auth,
+          values.email,
+          values.password
+        );
+
+        const user = {
+          name: values.name,
+          email: users.user.email,
+          uid: users.user.uid,
+          time: Timestamp.now(),
+          date: new Date().toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          }),
+        };
+
+        const userRefrence = collection(fireDb, "user");
+        await addDoc(userRefrence, user);
+
+        formik.resetForm();
+        toast.success("Signup Successfully");
+        navigate("/login");
+      } catch (error) {
+        console.error(error);
+        toast.error("Signup Failed");
+      } finally {
+        setLoading(false);
+      }
     },
   });
 

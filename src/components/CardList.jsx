@@ -1,18 +1,16 @@
 import React, { useContext } from "react";
 import Card from "./Card";
-// import JsonDATA from "../resources/Data";
 import myContext from "../context/myContext";
 import couponCategories from "../resources/CouponCategory";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { fireDb } from "../firebase";
 import Shimmer from "./Shimmer";
 
-
 const Cardlist = () => {
   const { loading, setLoading } = useContext(myContext);
   const [Data, setData] = useState([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(fireDb, "coupons"));
@@ -21,7 +19,6 @@ const Cardlist = () => {
         ...doc.data(),
       }));
       setData(items);
-      
     };
 
     fetchData();
@@ -37,17 +34,16 @@ const Cardlist = () => {
   const CouponCategories = couponCategories; // category and brand
   const category = Object.keys(CouponCategories); // categpry
   const Brands = couponCategories[categoryName]; // brands
-// console.log("data==", data);
+  // console.log("data==", data);
 
-  setLoading(true)
+  setLoading(true);
 
   const filteredCoupons = data.filter((coupon) => {
-    console.log("coupons:",coupon);
-    setLoading(false)
+    // console.log("coupons:", coupon);
+    setLoading(false);
     return (
       (!categoryName || coupon.category === categoryName) &&
-      (!brandname || coupon.brand === brandname)
-      
+      (!brandname || coupon.brandname === brandname)
     );
   });
 
@@ -56,15 +52,12 @@ const Cardlist = () => {
 
   return (
     <>
-      <div className="bg-[#181e24] min-h-screen pt-24
-      
-      
-       text-white flex w-full ">
-        <div className=" w-3/12  mr-3 mt-2">
-          <h1 className="text-center mt-3">Filter</h1>
+      <div className="bg-[#181e24] w-full min-h-screen mt-24 text-white flex flex-col lg:flex-row">
+        <div className="w-full flex flex-col items-center justify-start lg:w-2/12 lg:mr-3 mt-2">
+          <h1 className="text-center mt-3 w-full">Filter</h1>
 
           <select
-            className="bg-[#2a323c] rounded-md  mx-8 my-3 px-2 pb-2  text-center"
+            className="bg-[#2a323c] rounded-md mx-8 my-3 px-2 pb-2 text-center "
             value={categoryName}
             onChange={(e) => {
               setcetagoryName(e.target.value);
@@ -83,9 +76,9 @@ const Cardlist = () => {
             ))}
           </select>
 
-          {isDisable ? null : (
+          {!isDisable && (
             <select
-              className="bg-[#2a323c] rounded-md w-36 mx-8 my-3 px-1 pb-1  text-center"
+              className="bg-[#2a323c] rounded-md mx-8 my-3 px-1 pb-1 text-center "
               value={brandname}
               onChange={(e) => {
                 setbrandname(e.target.value);
@@ -95,8 +88,8 @@ const Cardlist = () => {
               <option value="" disabled>
                 By Brand
               </option>
-              {Brands?.map((name) => (
-                <option value={name} className="text-left">
+              {Brands?.map((name, index) => (
+                <option key={index} value={name} className="text-left">
                   {name}
                 </option>
               ))}
@@ -104,12 +97,12 @@ const Cardlist = () => {
           )}
         </div>
 
-        <div className="ml-60">
-          <div className="pl-8 items-center">
-            <h3 className="font-medium text-lg mt-4 px-2 "> Recommended</h3>
-            <div className="flex justify-around">
+        <div className="w-full  mt-6 lg:mt-0">
+          <div className="items-center ">
+            <h3 className="font-medium w-full text-center md:text-start text-lg mt-4 px-2">Recommended</h3>
+            <div className="flex flex-wrap justify-evenly lg:justify-start my-4">
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setcetagoryName("");
                   setbrandname("");
@@ -118,16 +111,16 @@ const Cardlist = () => {
                 All
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
-                  setisDisable(false)
+                  setisDisable(false);
                   setcetagoryName("Restaurants");
                 }}
               >
                 Food
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setcetagoryName("Electronics");
                 }}
@@ -135,7 +128,7 @@ const Cardlist = () => {
                 Electronics
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setcetagoryName("Clothing");
                 }}
@@ -143,7 +136,7 @@ const Cardlist = () => {
                 Clothing
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setcetagoryName("Travel");
                 }}
@@ -151,16 +144,15 @@ const Cardlist = () => {
                 Travel
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setcetagoryName("Subcription");
                 }}
               >
                 Subcription
               </button>
-
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setbrandname("Samsung");
                   setcetagoryName("");
@@ -169,7 +161,7 @@ const Cardlist = () => {
                 Samsung
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setbrandname("Hotstar");
                   setcetagoryName("");
@@ -178,7 +170,7 @@ const Cardlist = () => {
                 Hotstar
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setbrandname("KFC");
                   setcetagoryName("");
@@ -187,7 +179,7 @@ const Cardlist = () => {
                 KFC
               </button>
               <button
-                className="bg-[#2a323c] px-4  m-1 rounded-md"
+                className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
                   setbrandname("DMart");
                   setcetagoryName("");
@@ -197,26 +189,28 @@ const Cardlist = () => {
               </button>
             </div>
           </div>
-          <div>
-            <div className="">
-            {loading && <Shimmer />}
-            {loading && <Shimmer />}
-            {loading && <Shimmer />}
-            {loading && <Shimmer />}
-            {loading && <Shimmer />}
-            {loading && <Shimmer />}
-            {loading && <Shimmer />}
-            {loading && <Shimmer />}
-              {filteredCoupons.map((coupon) => (
-                <Card data={coupon} />
-                
+
+          <div className="flex flex-col pt-8 items-center justify-center md:grid md:grid-cols-3  gap-6">
+            {loading&& (
+              <>
+                <Shimmer />
+                <Shimmer />
+                <Shimmer />
+                <Shimmer />
+                <Shimmer />
+                <Shimmer />
+                <Shimmer />
+                <Shimmer />
+              </>
+            )}
+            {!loading &&
+              filteredCoupons.map((coupon) => (
+                <Card key={coupon.id} data={coupon} />
               ))}
-            </div>
-            
           </div>
         </div>
-
       </div>
+
     </>
   );
 };

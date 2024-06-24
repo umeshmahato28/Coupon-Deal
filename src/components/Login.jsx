@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, fireDb } from "../firebase";
@@ -17,58 +17,36 @@ const Login = () => {
   const { loading, setLoading } = useContext(myContext);
   
 
-  const [userLogin, setUserLogin] = useState({
-    email: "",
-    password: ""
-  });
-
- 
-
-  const loginFunction = async () => {
-    if (userLogin.email === "" && userLogin.password === "") {
-      toast.error("All Fields are required");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const users = await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password);
-      const q = query(
-        collection(fireDb, "user"),
-        where('uid', '==', users?.user?.uid)
-      );
-     
-    
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        let user;
-        querySnapshot.forEach((doc) => user = doc.data());
-        localStorage.setItem("users", JSON.stringify(user));
-        setUserLogin({
-          email: "",
-          password: ""
-        });
-        toast.success("Login Successfully");
-        setLoading(false);
-        window.location.href = '/'; 
-      });
-      return () => unsubscribe();
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      toast.error("Login Failed");
-    }
-  };
-  
-
-
-    
-
-
   const formik = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      setUserLogin(values); // Update state before calling login function
-      loginFunction();
+    onSubmit: async (values) => {
+      if (values.email === "" || values.password === "") {
+        toast.error("All fields are required");
+        return;
+      }
+      setLoading(true);
+      try {
+        const users = await signInWithEmailAndPassword(auth, values.email, values.password);
+        const q = query(
+          collection(fireDb, "user"),
+          where('uid', '==', users?.user?.uid)
+        );
+      
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          let user;
+          querySnapshot.forEach((doc) => user = doc.data());
+          localStorage.setItem("users", JSON.stringify(user));
+          
+          toast.success("Login Successfully");
+          setLoading(false);
+          window.location.href = '/'; 
+        });
+        return () => unsubscribe();
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        toast.error("Login Failed");
+      }
     },
   });
 
