@@ -146,7 +146,7 @@ const Cardlist = () => {
               <button
                 className="bg-[#2a323c] px-4 m-1 rounded-md"
                 onClick={(e) => {
-                  setcetagoryName("Subcription");
+                  setcetagoryName("Subscription");
                 }}
               >
                 Subcription

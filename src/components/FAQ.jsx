@@ -8,11 +8,11 @@ const FAQ = () => {
   const [show4, setshow4] = useState(false);
 
   return (
-    <div className="bg-[#181e24] pt-24 font-custom min-h-screen py-4 text-white ">
+    <div className="bg-[#181e24] pt-24 font-custom min-h-screen py-4 text-white flex flex-col items-center justify-center">
       <h1 className="bg-[#2a323c] text-center text-5xl font-medium p-2">
         FAQs
       </h1>
-      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4 mx-48  my-4 mt-12 px-3">
+      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4   my-4 mt-12 px-3">
         <h2
           className="text-2xl font-medium p-2 cursor-pointer "
           onClick={(e) => {
@@ -33,7 +33,7 @@ const FAQ = () => {
         ) : null}
       </div>
 
-      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4 mx-48  my-4  px-3">
+      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4 my-4  px-3">
         <h2
           className="text-2xl font-medium p-2 cursor-pointer "
           onClick={(e) => {
@@ -51,7 +51,7 @@ const FAQ = () => {
         ) : null}
       </div>
 
-      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4 mx-48  my-4 px-3">
+      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4 my-4 px-3">
         <h2
           className="text-2xl font-medium p-2 cursor-pointer "
           onClick={(e) => {
@@ -70,7 +70,7 @@ const FAQ = () => {
         ) : null}
       </div>
 
-      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4 mx-48  my-4  px-3">
+      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4  my-4  px-3">
         <h2
           className="text-2xl font-medium p-2 cursor-pointer "
           onClick={(e) => {
@@ -93,7 +93,7 @@ const FAQ = () => {
         ) : null}
       </div>
 
-      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4 mx-48  my-4  px-3">
+      <div className="bg-[#2a323c] rounded-md shadow-lg   w-3/4  my-4  px-3">
         <h2
           className="text-2xl font-medium p-3 cursor-pointer "
           onClick={(e) => {

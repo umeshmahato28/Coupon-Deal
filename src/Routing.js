@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import { MyContextProvider } from "./context/myContext";
 import FAQ from "./components/FAQ";
 import PayPage from "./components/PayPage";
+import UserInfo from "./components/UserInfo";
 
 
 
@@ -25,6 +26,7 @@ const Routing = () => {
         <Route exact path="/contact" element={<Contact />}></Route>
         <Route exact path="/faq" element={<FAQ />}></Route>
         <Route exact path="/pay/:id" element={<PayPage />}></Route>
+        <Route exact path="/user" element={<UserInfo/>}></Route>
       </Routes>
 
     </MyContextProvider>

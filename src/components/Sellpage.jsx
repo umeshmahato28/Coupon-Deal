@@ -24,6 +24,7 @@ const Sellpage = () => {
     offer: "",
     price: "",
     minimumAmt: "",
+    uploadBy: "",
     code: "",
     time: Timestamp.now(),
     date: new Date().toLocaleString("en-US", {
@@ -32,6 +33,8 @@ const Sellpage = () => {
       year: "numeric",
     }),
   });
+
+
 
   // Add coupon Function
   const addCouponFunction = async (e) => {
@@ -69,9 +72,9 @@ const Sellpage = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [para, setpara] = useState(false);
   const [islog, setislog] = useState(false);
-
+ 
   useEffect(() => {
-    console.log("hello");
+   
     const user = JSON.parse(localStorage.getItem("users"));
 
     if (user == null) {
@@ -79,7 +82,14 @@ const Sellpage = () => {
     } else {
       setislog(true);
     }
-  }, []);
+    
+    setCoupon((prevCoupon) => ({ ...prevCoupon, uploadBy: user.uid }));
+    console.log(coupon.uploadBy);
+  },[coupon.uploadBy]);
+
+  
+
+ 
   const Brands = CouponCategories[categoryName];
 
   return (
@@ -140,7 +150,7 @@ const Sellpage = () => {
                 ))}
               </select>
             </div>
-                  
+
             <div className="mb-2">
               <label
                 htmlFor="Validity"
@@ -160,6 +170,7 @@ const Sellpage = () => {
                 placeholder="DD--MM--YYYY"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
+          
             </div>
             {/* offer  & price*/}
             <label htmlFor="offer" className=" text-white font-semibold mb-2">

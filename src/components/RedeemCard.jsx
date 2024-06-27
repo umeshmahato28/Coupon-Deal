@@ -6,23 +6,7 @@ const RedeemCard = ({ data }) => {
   const [payment, setpayment] = useState(false);
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    // const shipping_address = {
-    //     first_name: formData.fname,
-    //     last_name: formData.lname,
-    //     address: formData.address,
-    //     email: formData.email,
-    //     country: formData.country,
-    //     state: formData.state,
-    //     city: formData.city,
-    //     postcode: formData.pincode,
-    //     phone_number: formData.mobile,
-    //     date: new Date().toLocaleString("en-US", {
-    //         month: "short",
-    //         day: "2-digit",
-    //         year: "numeric",
-    //     }),
-    // };
+   
     var options = {
       key: "rzp_test_oBE4QaC9eyjz3H",
       key_secret: "rBtkDdVPtbqnPmBohEHJzxl1",
@@ -67,6 +51,7 @@ const RedeemCard = ({ data }) => {
             <li>2. This offer cannot be clubbed with any other offer </li>
             <li>3. Minimum spend {data.minimumAmt}Rs.</li>
             <li>4. Validity {data.validity}</li>
+           
           </ol>
         </div>
         <div className="  h-full md:w-1/2 w-full flex flex-col pt-6 items-center justify-center gap-y-4 ">

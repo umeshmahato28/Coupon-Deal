@@ -27,10 +27,9 @@ const Footer = () => {
             </Link>
             <Link to="/faq" className="hover:cursor-pointer mb-2 md:mb-0">
               FAQ
-            </Link>
-            <Link>
-              {" "}
-              <h1 to="/contact" className="hover:cursor-pointer mb-2 md:mb-0">
+            </Link >
+            <Link to="/contact" >
+              <h1 className="hover:cursor-pointer mb-2 md:mb-0">
                 CONTACT US{" "}
               </h1>
             </Link>

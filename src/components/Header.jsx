@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import logo from "./images/cd_logo.png";
 import { Link, NavLink } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { IoMenu } from "react-icons/io5";
+import Dropbox from "./Dropbox.jsx";
 
 const Header = () => {
-  // const [show, setshow] = useState(false);
   const [islog, setislog] = useState(false);
   const [users, setUsers] = useState();
-  useEffect(() => {
-    // console.log("hello");
-    const user = JSON.parse(localStorage.getItem("users"));
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [dropboxOpen, setDropboxOpen] = useState(false);
+  const dropboxRef = useRef(null);
 
-    if (user == null) {
-      setislog(false);
-    } else {
-      setislog(true);
-    }
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("users"));
+    setislog(!!user);
     setUsers(user);
+
+    const handleClickOutside = (event) => {
+      if (dropboxRef.current && !dropboxRef.current.contains(event.target)) {
+        setDropboxOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,9 +42,9 @@ const Header = () => {
     window.location.reload();
   };
 
-  // const clickhandle = () => {
-  //   setshow(!show);
-  // };
+  const toggleDropbox = () => {
+    setDropboxOpen(!dropboxOpen);
+  };
 
   return (
     <header className="font-custom bg-gradient-to-tl from-cyan-500 to-green-500 pt-3 pb-1 fixed top-0 left-0 w-full z-50 h-24">
@@ -71,7 +78,7 @@ const Header = () => {
                 : "text-white hover:text-gray-400"
             }
           >
-            Coupon
+            Coupons
           </NavLink>
           {islog ? (
             <NavLink
@@ -107,7 +114,7 @@ const Header = () => {
             Contact
           </NavLink>
         </div>
-        <div className="flex justify-end md:gap-x-2  md:p-4">
+        <div className="flex justify-end md:gap-x-2 md:p-4">
           {islog ? (
             <button
               id="basic-button"
@@ -120,93 +127,23 @@ const Header = () => {
               <i className="fas fa-user"></i>
             </button>
           ) : (
-            <Link to="/login" className="bg-blue-500 p-1 px-2  mr-4 rounded-md">
+            <Link to="/login" className="bg-blue-500 p-1 px-2 mr-4 rounded-md">
               Login
             </Link>
           )}
         </div>
-        <div className="mr-4 md:hidden">
-        {/* Menu for small screens */}
-          <IoMenu className="h-6 w-6" />
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-            className=""
-          >
-            {users ? (
-              <MenuItem className="w-56 rounded-lg bg-black text-white flex flex-col items-center p-4">
-                <NavLink
-                  to="/"
-                  exact
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-white text-lg font-bold"
-                      : "text-white hover:text-gray-400"
-                  }
-                >
-                  Home
-                </NavLink>
-                <NavLink
-                  to="/cardList"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-white text-lg font-bold"
-                      : "text-white hover:text-gray-400"
-                  }
-                >
-                  Coupon
-                </NavLink>
-                {islog ? (
-                  <NavLink
-                    to="/uploadCoupon"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-white text-lg font-bold"
-                        : "text-white hover:text-gray-400"
-                    }
-                  >
-                    Sell Coupon
-                  </NavLink>
-                ) : (
-                  <NavLink
-                    to="/login"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-white text-lg font-bold"
-                        : "text-white hover:text-gray-400"
-                    }
-                  >
-                    Sell Coupon
-                  </NavLink>
-                )}
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-white text-lg font-bold"
-                      : "text-white hover:text-gray-400"
-                  }
-                >
-                  Contact
-                </NavLink>
-
-                <Link
-                  to="/"
-                  onClick={logout}
-                  className="bg-red-600 text-md font-bold px-4 mt-4 py-1 rounded-lg hover:bg-red-700"
-                >
-                  Logout
-                </Link>
-              </MenuItem>
-            ) : null}
-          </Menu>
+        <div ref={dropboxRef}>
+        <button
+          type="button"
+          className="md:hidden w-8 h-10 mr-3 scale-150"
+          id="options-menu"
+          
+          onClick={toggleDropbox}
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+          {dropboxOpen && <Dropbox />}
         </div>
-        {/* Menu for large display */}
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -215,10 +152,9 @@ const Header = () => {
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
-          // className=""
         >
           {users ? (
-            <MenuItem className="w-56 flex flex-col items-center ">
+            <MenuItem className="w-56 flex flex-col items-center">
               <img
                 src="https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg"
                 alt="user"
@@ -227,10 +163,9 @@ const Header = () => {
               <h1 className="text-center">{users.name}</h1>
               <h2 className="text-center">{users.email}</h2>
               <hr className="w-full my-2" />
-              {/* <button className="text-md font-medium mb-2">
+              <Link to="/user" className="text-md font-medium mb-2">
                 Manage Profile
-              </button> */}
-
+              </Link>
               <Link
                 to="/"
                 onClick={logout}
