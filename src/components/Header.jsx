@@ -127,7 +127,7 @@ const Header = () => {
               <i className="fas fa-user"></i>
             </button>
           ) : (
-            <Link to="/login" className="bg-blue-500 p-1 px-2 mr-4 rounded-md">
+            <Link to="/login" className="bg-blue-500 p-1 px-2  rounded-md">
               Login
             </Link>
           )}
