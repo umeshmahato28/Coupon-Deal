@@ -23,7 +23,7 @@ function Card({ data }) {
 
   return (
     <>
-      <div className=" items-center  ">
+      <div className=" items-center bg-[#181e24] ">
         <div className="bg-[#2a323c] p-2 pl-5 text-white   w-56 mx-4 rounded-md rounded-t-xl ">
           <div className="flex mt-5 ">
             <img

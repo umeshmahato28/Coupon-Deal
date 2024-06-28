@@ -10,12 +10,14 @@ import { MyContextProvider } from "./context/myContext";
 import FAQ from "./components/FAQ";
 import PayPage from "./components/PayPage";
 import UserInfo from "./components/UserInfo";
+import ScrollTop from "./components/ScrollTop";
 
 
 
 const Routing = () => {
   return (
     <MyContextProvider>
+      <ScrollTop/>
       <Routes>
         <Route exact path="/" element={<Body />} />
         <Route exact path="/signup" element={<Signup />}></Route>

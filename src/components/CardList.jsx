@@ -52,7 +52,7 @@ const Cardlist = () => {
 
   return (
     <>
-      <div className="bg-[#181e24] w-full min-h-screen mt-24 text-white flex flex-col lg:flex-row">
+      <div className="bg-[#181e24] w-full min-h-screen mt-24 pb-8 text-white flex flex-col lg:flex-row">
         <div className="w-full flex flex-col items-center justify-start lg:w-2/12 lg:mr-3 mt-2">
           <h1 className="text-center mt-3 w-full">Filter</h1>
 
@@ -190,7 +190,7 @@ const Cardlist = () => {
             </div>
           </div>
 
-          <div className="flex flex-col pt-8 items-center justify-center md:grid md:grid-cols-3  gap-6">
+          <div className="flex flex-col pt-8 items-center justify-center md:grid md:grid-cols-3 lg:grid-cols-4 gap-6">
             {loading&& (
               <>
                 <Shimmer />
