@@ -23,7 +23,7 @@ const Body = () => {
             <img src={slogan} alt="slogan" className=" w-full h-full " />
           </div>
 
-          <p className="font-custom text-white px-28 flex-col lg:items-start items-center   lg:w-1/2  w-full text-xl md:p-10 md:text-3xl tracking-wide leading-normal md:leading-loose flex  justify-center">
+          <p className="font-custom  text-white px-28 flex-col lg:items-start items-center   lg:w-1/2  w-full text-xl md:p-10 md:text-3xl tracking-wide leading-normal md:leading-loose flex  justify-center">
             <span className="bg-gradient-to-tl from-cyan-500 to-green-500 bg-clip-text text-transparent font-bold lg:text-6xl md:text-5xl text-4xl ">
               CouponDeal
             </span>{" "}
@@ -40,9 +40,9 @@ const Body = () => {
         <div className="bg-[#181e24] w-full">
           {/* Recently Uploaded coupons section */}
           <div>
-            <h1 className="text-center mt-8 font-extrabold text-3xl p-2 bg-[#181e24] shadow-xl text-white">
+            {/* <h1 className="text-center mt-8 font-extrabold text-3xl p-2 bg-[#181e24] shadow-xl text-white">
               RECENT COUPONS{" "}
-            </h1>
+            </h1> */}
             <div className="bg-[#181e24] h-auto m-8 max-w-xl"></div>
           </div>
           {/* Recently Uploaded coupons section ends */}
